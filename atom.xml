@@ -1,19 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Hexo</title>
+  <title>Jared-H</title>
   
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-08-29T02:43:50.668Z</updated>
+  <updated>2016-03-17T14:19:03.751Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
-    <name>John Doe</name>
+    <name>HJR</name>
     
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2016/08/29/matlab&amp;abaqus&amp;python/"/>
+    <id>http://yoursite.com/2016/08/29/matlab&amp;abaqus&amp;python/</id>
+    <published>2016-08-29T03:18:35.899Z</published>
+    <updated>2016-03-17T14:19:03.751Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Matlab-amp-Abaqus-amp-Python"><a href="#Matlab-amp-Abaqus-amp-Python" class="headerlink" title="Matlab &amp; Abaqus &amp; Python"></a>Matlab &amp; Abaqus &amp; Python</h1><hr>
+<h2 id="1-Operate-Abaqus-with-Matlab"><a href="#1-Operate-Abaqus-with-Matlab" class="headerlink" title="1. Operate Abaqus with Matlab"></a>1. Operate Abaqus with Matlab</h2><p>Matlab has a lot of command to run other softwares like <code>dos</code>,<code>system</code>,<code>!</code>,<code>unix</code>, etc. Here we use the command <code>dos</code> as a demo.</p>
+<pre><code>[s,w]=dos(&apos;abaqus job=1 inp=RW2.inp user=nam_sn-std.obj int&apos;,&apos;-echo&apos;);
+</code></pre><p>In which the command <code>dos</code> means to open the <code>CMD</code> in windows, and the following strings is the command you want to run in the <code>CMD</code>. <code>abaqus</code> is the command to run abaqus command lines. <code>job=1</code> means you job’s name is ‘1’, <code>inp=xxxx</code> is the inp file you want to submit to Abaqus, <code>user</code> is the command you need when you have a user defined subroutine file to add in the job session. The <code>int</code> means that the log information will show on the screen during calculation which is important because you need the command window to remain rolling so that you can run other commands only when the last calculation finishes. <code>-echo</code> means the information will show on the command window of Matlab which will also be stored in the variable ‘w’.</p>
+<p>Before you start the calculation, several proper .inp files are needed for the stochastic simulation. Here I use Matlab to read the .inp file that have already been built by Abaqus into a ‘cell’ kind of variable. This ‘cell’ is large array matrix with string as element. Every line in the file becomes a  string element in the array. What’s left is to find out which line you need to change and the location of the commands you want to add on. Then write the changed ‘cell’ into a new file.</p>
+<p>Big discovery today, <em>the inp file for the Abaqus command need to be more strict in format than the Abaqus cae</em>, <strong>especially no blank lines inside one session</strong>. But the Abaqus cae can import the wrong inp file as a model.</p>
+<h2 id="2-Operate-Python-with-Matlab"><a href="#2-Operate-Python-with-Matlab" class="headerlink" title="2. Operate Python with Matlab"></a>2. Operate Python with Matlab</h2><p>It’s the same as the former one, because the <code>dos</code> command can run all the command that runs in the CMD window.</p>
+<p>The interesting thing is the Python langurage, the data structure in this langurage is very powerful, the odb file of the Abaqus is also this kind of data structure, that’s why Python is very useful in post-processing. Here I use Python to decompose the odb file and take out the displacement and the reaction force.</p>
+<pre><code>from odbAccess import *
+odb = openOdb(path=&apos;Job-mc1.odb&apos;)
+
+# 从输出数据库中提取场变量计算结果。
+s2 = odb.steps[&apos;Step-2&apos;]
+Ux1 = s2.historyRegions[&apos;Node RW2-1.48&apos;].historyOutputs[&apos;U1&apos;].data
+
+Fx1 = s2.historyRegions[&apos;Node RW2-1.1&apos;].historyOutputs[&apos;RF1&apos;].data
+
+print Ux1
+print Fx1
+</code></pre><p>Then the after code are used in Matlab:<br>    [s,w]=dos(‘abaqus python readdata.py &gt;&gt; temp.txt’);<br>The output of CMD will be stored in the <em>temp.txt</em> file and the last two rows will be the displacement and the force.</p>
+<p>A problem pops up, because the data in <em>temp.txt</em> has a format below:</p>
+<blockquote>
+<p>((0.0, -9840.1611328125), (0.0010000000474974513, -10147.7822265625), (0.0020000000949949026, -10139.9453125),…)</p>
+</blockquote>
+<p>Which Matlab can’t read, so I use:</p>
+<pre><code>tem=strrep(ordata,&apos;(&apos;,&apos;[&apos;);
+tem=strrep(tem,&apos;)&apos;,&apos;]&apos;);
+tem=strrep(tem,&apos;],&apos;,&apos;];&apos;);
+U=str2num(tem);
+</code></pre><p>to change the buklet so that Matlab can read it as a matrix.</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Matlab-amp-Abaqus-amp-Python&quot;&gt;&lt;a href=&quot;#Matlab-amp-Abaqus-amp-Python&quot; class=&quot;headerlink&quot; title=&quot;Matlab &amp;amp; Abaqus &amp;amp; Python&quot;&gt;&lt;/
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Hello World</title>
