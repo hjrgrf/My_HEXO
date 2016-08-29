@@ -4,9 +4,9 @@
   
   <link href="/My_hexo/atom.xml" rel="self"/>
   
-  <link href="http://hjrgrf.github.io/My_hexo/"/>
+  <link href="https://hjrgrf.github.io/My_hexo/"/>
   <updated>2016-03-17T14:19:03.751Z</updated>
-  <id>http://hjrgrf.github.io/My_hexo/</id>
+  <id>https://hjrgrf.github.io/My_hexo/</id>
   
   <author>
     <name>HJR</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title></title>
-    <link href="http://hjrgrf.github.io/My_hexo/2016/08/29/matlab&amp;abaqus&amp;python/"/>
-    <id>http://hjrgrf.github.io/My_hexo/2016/08/29/matlab&amp;abaqus&amp;python/</id>
+    <link href="https://hjrgrf.github.io/My_hexo/2016/08/29/matlab&amp;abaqus&amp;python/"/>
+    <id>https://hjrgrf.github.io/My_hexo/2016/08/29/matlab&amp;abaqus&amp;python/</id>
     <published>2016-08-29T03:18:35.899Z</published>
     <updated>2016-03-17T14:19:03.751Z</updated>
     
@@ -65,8 +65,8 @@ U=str2num(tem);
   
   <entry>
     <title>Hello World</title>
-    <link href="http://hjrgrf.github.io/My_hexo/2016/08/29/hello-world/"/>
-    <id>http://hjrgrf.github.io/My_hexo/2016/08/29/hello-world/</id>
+    <link href="https://hjrgrf.github.io/My_hexo/2016/08/29/hello-world/"/>
+    <id>https://hjrgrf.github.io/My_hexo/2016/08/29/hello-world/</id>
     <published>2016-08-29T02:43:50.665Z</published>
     <updated>2016-08-29T02:43:50.668Z</updated>
     
